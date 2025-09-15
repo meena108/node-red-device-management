@@ -1,0 +1,761 @@
+[
+    {
+        "id": "01ba0e4f534553d7",
+        "type": "tab",
+        "label": "Managing the devices",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "314b3b93b4014945",
+        "type": "group",
+        "z": "01ba0e4f534553d7",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "3e740e52d59a615b",
+            "fe25c9ed75362965",
+            "6724583c7ddeafa2",
+            "f846fa431dd2b9d0",
+            "15c8a7e4dd45f8c3",
+            "ee22609e4a535ed5",
+            "7e60e4c6c414747c",
+            "f8315d090d458371",
+            "lnkin-del-refresh",
+            "c49cf7bab5b8b436"
+        ],
+        "x": 14,
+        "y": 19,
+        "w": 932,
+        "h": 322
+    },
+    {
+        "id": "ad03d1c702e0b30c",
+        "type": "group",
+        "z": "01ba0e4f534553d7",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "864de08c9ea012a2",
+            "d7d90159149af449",
+            "915b35069b4669e0",
+            "52beb4a50a8b7432",
+            "17aebf85078c7555"
+        ],
+        "x": 1014,
+        "y": 119,
+        "w": 812,
+        "h": 142
+    },
+    {
+        "id": "1d5c597129e679fa",
+        "type": "group",
+        "z": "01ba0e4f534553d7",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "2bdf774958d3611d",
+            "aa5bc36d99c43670",
+            "728f71227511ae2a",
+            "c47f56bc803c762f",
+            "3b7b04b9553226d9",
+            "lnkin-del-clear"
+        ],
+        "x": 1924,
+        "y": 299,
+        "w": 682,
+        "h": 202
+    },
+    {
+        "id": "3195933e9e90e831",
+        "type": "group",
+        "z": "01ba0e4f534553d7",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "3a65dc10b1a9ef9d",
+            "a493aa07038a59c3",
+            "9ccf628de9e176d5",
+            "a4adf7c1e104359e",
+            "9f9586effc40927b",
+            "lnkout-del-refresh",
+            "24bb9b1cecdb4f0a",
+            "lnkout-del-clear"
+        ],
+        "x": 1074,
+        "y": 479,
+        "w": 622,
+        "h": 362
+    },
+    {
+        "id": "3e740e52d59a615b",
+        "type": "inject",
+        "z": "01ba0e4f534553d7",
+        "g": "314b3b93b4014945",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 220,
+        "wires": [
+            [
+                "6724583c7ddeafa2"
+            ]
+        ]
+    },
+    {
+        "id": "fe25c9ed75362965",
+        "type": "DB2 for i",
+        "z": "01ba0e4f534553d7",
+        "g": "314b3b93b4014945",
+        "mydb": "42c30ae69771fb7c",
+        "name": "Meena 1",
+        "arraymode": true,
+        "x": 560,
+        "y": 220,
+        "wires": [
+            [
+                "f846fa431dd2b9d0",
+                "f8315d090d458371"
+            ]
+        ]
+    },
+    {
+        "id": "6724583c7ddeafa2",
+        "type": "function",
+        "z": "01ba0e4f534553d7",
+        "g": "314b3b93b4014945",
+        "name": "SQL Device List",
+        "func": "// Standardize the column names used across the flow\nmsg.payload = `\n  SELECT\n    DEV_ID,\n    DEV_NAME  AS DEVICE_NAME,\n    DEV_DESC  AS DETAILS,\n    DEV_TYPE  AS DEVTYPE\n  FROM MEENA.N_DEVICES\n  ORDER BY DEV_ID\n`;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 220,
+        "wires": [
+            [
+                "fe25c9ed75362965",
+                "7e60e4c6c414747c"
+            ]
+        ]
+    },
+    {
+        "id": "f846fa431dd2b9d0",
+        "type": "ui_table",
+        "z": "01ba0e4f534553d7",
+        "g": "314b3b93b4014945",
+        "group": "cea28fdf0fe8b17d",
+        "name": "",
+        "order": 1,
+        "width": 17,
+        "height": 12,
+        "columns": [
+            {
+                "field": "DEV_ID",
+                "title": "DEV_ID",
+                "width": "250",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "DEVICE_NAME",
+                "title": "Device Name",
+                "width": "220",
+                "align": "center",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "DETAILS",
+                "title": "Details",
+                "width": "220",
+                "align": "center",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "DEVTYPE",
+                "title": "Device Type",
+                "width": "220",
+                "align": "center",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 1,
+        "cts": true,
+        "x": 730,
+        "y": 220,
+        "wires": [
+            [
+                "d7d90159149af449"
+            ]
+        ]
+    },
+    {
+        "id": "15c8a7e4dd45f8c3",
+        "type": "comment",
+        "z": "01ba0e4f534553d7",
+        "g": "314b3b93b4014945",
+        "name": "Create list of Devices available",
+        "info": "",
+        "x": 170,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "ee22609e4a535ed5",
+        "type": "comment",
+        "z": "01ba0e4f534553d7",
+        "g": "314b3b93b4014945",
+        "name": "Table set to send data from line clicked",
+        "info": "",
+        "x": 770,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "864de08c9ea012a2",
+        "type": "DB2 for i",
+        "z": "01ba0e4f534553d7",
+        "g": "ad03d1c702e0b30c",
+        "mydb": "42c30ae69771fb7c",
+        "name": "Meena 2",
+        "arraymode": true,
+        "x": 1320,
+        "y": 220,
+        "wires": [
+            [
+                "52beb4a50a8b7432"
+            ]
+        ]
+    },
+    {
+        "id": "d7d90159149af449",
+        "type": "function",
+        "z": "01ba0e4f534553d7",
+        "g": "ad03d1c702e0b30c",
+        "name": "Get selected device",
+        "func": "// list actual known devices\n//let device = msg.payload.DEV_ID\n//msg.payload = `select * from meena.N_DEVICES where dev_id = '${device}'`\n\n//return msg;\n\nconst device = msg.payload.DEV_ID;\n\n// Use the same aliases the form expects\nmsg.payload = `\n  SELECT\n    DEV_ID,\n    DEV_NAME  AS DEVICE_NAME,\n    DEV_DESC  AS DETAILS,\n    DEV_TYPE  AS DEVTYPE\n  FROM MEENA.N_DEVICES\n  WHERE DEV_ID = '${device}'\n`;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1130,
+        "y": 220,
+        "wires": [
+            [
+                "864de08c9ea012a2"
+            ]
+        ]
+    },
+    {
+        "id": "915b35069b4669e0",
+        "type": "ui_form",
+        "z": "01ba0e4f534553d7",
+        "g": "ad03d1c702e0b30c",
+        "name": "",
+        "label": "",
+        "group": "a5d111fc9e66fc0a",
+        "order": 1,
+        "width": 11,
+        "height": 9,
+        "options": [
+            {
+                "label": "Device Name",
+                "value": "DEVICE_NAME",
+                "type": "text",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "Details",
+                "value": "DETAILS",
+                "type": "multiline",
+                "required": false,
+                "rows": 3
+            },
+            {
+                "label": "Device Type",
+                "value": "DEVTYPE",
+                "type": "text",
+                "required": false,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "DEVICE_NAME": "",
+            "DETAILS": "",
+            "DEVTYPE": ""
+        },
+        "payload": "",
+        "submit": "submit Changes",
+        "cancel": "Revert",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 1750,
+        "y": 220,
+        "wires": [
+            [
+                "728f71227511ae2a"
+            ]
+        ]
+    },
+    {
+        "id": "52beb4a50a8b7432",
+        "type": "function",
+        "z": "01ba0e4f534553d7",
+        "g": "ad03d1c702e0b30c",
+        "name": "Create information for form",
+        "func": "// Expecting an array from DB2 SELECT\nconst rows = Array.isArray(msg.payload) ? msg.payload : [];\nif (!rows.length) { return null; }   // nothing returned, stop quietly\n\nconst r = rows[0];\n\nconst Device_ID   = r.DEV_ID;\nconst Device_Name = r.DEVICE_NAME || \"\";\nconst Details     = r.DETAILS || \"\";\nconst Device_Type = r.DEVTYPE || \"\";\n\n// remember the selected id (also helps your DELETE node)\nflow.set('currentDeviceId', Device_ID);\n\n// send the id along with the form using msg.topic (form is set to use topic)\nmsg.topic = Device_ID;\n\n// populate the form fields\nmsg.payload = {\n  DEVICE_NAME: Device_Name,\n  DETAILS: Details,\n  DEVTYPE: Device_Type\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1540,
+        "y": 220,
+        "wires": [
+            [
+                "915b35069b4669e0",
+                "aa5bc36d99c43670"
+            ]
+        ]
+    },
+    {
+        "id": "17aebf85078c7555",
+        "type": "comment",
+        "z": "01ba0e4f534553d7",
+        "g": "ad03d1c702e0b30c",
+        "name": "Retrieve and show data from selected Device.",
+        "info": "",
+        "x": 1210,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "2bdf774958d3611d",
+        "type": "ui_text",
+        "z": "01ba0e4f534553d7",
+        "g": "1d5c597129e679fa",
+        "group": "008eb86483537744",
+        "order": 1,
+        "width": 9,
+        "height": 1,
+        "name": "",
+        "label": "(Cannot Change) DEVICE ID:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 2450,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "aa5bc36d99c43670",
+        "type": "function",
+        "z": "01ba0e4f534553d7",
+        "g": "1d5c597129e679fa",
+        "name": "Create information for Text Box",
+        "func": "msg.payload = msg.topic\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2110,
+        "y": 400,
+        "wires": [
+            [
+                "2bdf774958d3611d"
+            ]
+        ]
+    },
+    {
+        "id": "728f71227511ae2a",
+        "type": "function",
+        "z": "01ba0e4f534553d7",
+        "g": "1d5c597129e679fa",
+        "name": "Clear Text Box on Submit(UPDATE builder)",
+        "func": "// id comes back in msg.topic (set earlier)\nconst id = msg.topic;\nconst data = msg.payload || {};\n\nconst name = data.DEVICE_NAME || \"\";\nconst details = data.DETAILS ?? null;\nconst dtype = data.DEVTYPE || \"\";\n\nconst detailsSql = (details === null || details === \"\") ? \"NULL\" : `'${details}'`;\n\n// 1) Message to DB2\nconst sqlMsg = {\n  payload: `\n    UPDATE MEENA.N_DEVICES\n    SET DEV_NAME='${name}', DEV_DESC=${detailsSql}, DEV_TYPE='${dtype}'\n    WHERE DEV_ID='${id}'\n  `\n};\n\n// 2) Message to clear the Device ID text\nconst clearMsg = { topic: \"\" };\n\nreturn [sqlMsg, clearMsg];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2130,
+        "y": 460,
+        "wires": [
+            [
+                "3b7b04b9553226d9"
+            ]
+        ]
+    },
+    {
+        "id": "c47f56bc803c762f",
+        "type": "comment",
+        "z": "01ba0e4f534553d7",
+        "g": "1d5c597129e679fa",
+        "name": "Put selected Device ID into protected Text box.",
+        "info": "",
+        "x": 2170,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "7e60e4c6c414747c",
+        "type": "debug",
+        "z": "01ba0e4f534553d7",
+        "g": "314b3b93b4014945",
+        "name": "debug 1232",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "f8315d090d458371",
+        "type": "debug",
+        "z": "01ba0e4f534553d7",
+        "g": "314b3b93b4014945",
+        "name": "debug 1233",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "3a65dc10b1a9ef9d",
+        "type": "ui_button",
+        "z": "01ba0e4f534553d7",
+        "g": "3195933e9e90e831",
+        "name": "",
+        "group": "a5d111fc9e66fc0a",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "DELETE",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1280,
+        "y": 760,
+        "wires": [
+            [
+                "a493aa07038a59c3"
+            ]
+        ]
+    },
+    {
+        "id": "a493aa07038a59c3",
+        "type": "function",
+        "z": "01ba0e4f534553d7",
+        "g": "3195933e9e90e831",
+        "name": "Delete Device",
+        "func": "// Get the selected ID from msg.topic OR from flow memory\nconst id = msg.topic || flow.get('currentDeviceId');\nif (!id) return [null, null, null];  // nothing selected\n\n// 1) DELETE from DB\nconst deleteMsg = {\n  payload: `\n    DELETE FROM MEENA.N_DEVICES\n    WHERE DEV_ID='${id}'\n  `\n};\n\n// 2) Clear Device ID text\nconst clearIdMsg = { topic: \"\" };\n\n// 3) Refresh table\nconst refreshMsg = {\n  payload: `\n    SELECT\n      DEV_ID,\n      DEV_NAME  AS DEVICE_NAME,\n      DEV_DESC  AS DETAILS,\n      DEV_TYPE  AS DEVTYPE\n    FROM MEENA.N_DEVICES\n    ORDER BY DEV_ID\n  `\n};\n\nreturn [deleteMsg, clearIdMsg, refreshMsg];\n",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1480,
+        "y": 760,
+        "wires": [
+            [
+                "9ccf628de9e176d5"
+            ],
+            [
+                "lnkout-del-clear"
+            ],
+            [
+                "24bb9b1cecdb4f0a"
+            ]
+        ]
+    },
+    {
+        "id": "9ccf628de9e176d5",
+        "type": "DB2 for i",
+        "z": "01ba0e4f534553d7",
+        "g": "3195933e9e90e831",
+        "mydb": "42c30ae69771fb7c",
+        "name": "Meena 3",
+        "arraymode": true,
+        "x": 1300,
+        "y": 620,
+        "wires": [
+            [
+                "lnkout-del-refresh"
+            ]
+        ]
+    },
+    {
+        "id": "a4adf7c1e104359e",
+        "type": "comment",
+        "z": "01ba0e4f534553d7",
+        "g": "3195933e9e90e831",
+        "name": "Delete Device (Clean)",
+        "info": "",
+        "x": 1200,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "lnkout-del-refresh",
+        "type": "link out",
+        "z": "01ba0e4f534553d7",
+        "g": "3195933e9e90e831",
+        "name": "to: Refresh Device List",
+        "mode": "link",
+        "links": [
+            "lnkin-del-refresh"
+        ],
+        "x": 1415,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "lnkin-del-refresh",
+        "type": "link in",
+        "z": "01ba0e4f534553d7",
+        "g": "314b3b93b4014945",
+        "name": "from: Delete → Refresh Device List",
+        "links": [
+            "lnkout-del-refresh"
+        ],
+        "x": 235,
+        "y": 280,
+        "wires": [
+            [
+                "6724583c7ddeafa2"
+            ]
+        ]
+    },
+    {
+        "id": "lnkout-del-clear",
+        "type": "link out",
+        "z": "01ba0e4f534553d7",
+        "g": "3195933e9e90e831",
+        "name": "to: Clear Device ID",
+        "mode": "link",
+        "links": [
+            "lnkin-del-clear"
+        ],
+        "x": 1655,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "lnkin-del-clear",
+        "type": "link in",
+        "z": "01ba0e4f534553d7",
+        "g": "1d5c597129e679fa",
+        "name": "from: Delete → Clear Device ID",
+        "links": [
+            "lnkout-del-clear"
+        ],
+        "x": 1965,
+        "y": 360,
+        "wires": [
+            [
+                "aa5bc36d99c43670"
+            ]
+        ]
+    },
+    {
+        "id": "3b7b04b9553226d9",
+        "type": "link out",
+        "z": "01ba0e4f534553d7",
+        "g": "1d5c597129e679fa",
+        "name": "to: Refresh Device List",
+        "mode": "link",
+        "links": [
+            "9f9586effc40927b"
+        ],
+        "x": 2335,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "9f9586effc40927b",
+        "type": "link in",
+        "z": "01ba0e4f534553d7",
+        "g": "3195933e9e90e831",
+        "name": "from: Delete → Refresh Device List",
+        "links": [
+            "3b7b04b9553226d9"
+        ],
+        "x": 1115,
+        "y": 620,
+        "wires": [
+            [
+                "9ccf628de9e176d5"
+            ]
+        ]
+    },
+    {
+        "id": "24bb9b1cecdb4f0a",
+        "type": "link out",
+        "z": "01ba0e4f534553d7",
+        "g": "3195933e9e90e831",
+        "name": "to: Clear Device ID",
+        "mode": "link",
+        "links": [
+            "c49cf7bab5b8b436"
+        ],
+        "x": 1595,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "c49cf7bab5b8b436",
+        "type": "link in",
+        "z": "01ba0e4f534553d7",
+        "g": "314b3b93b4014945",
+        "name": "from: Delete → Clear Device ID",
+        "links": [
+            "24bb9b1cecdb4f0a"
+        ],
+        "x": 465,
+        "y": 300,
+        "wires": [
+            [
+                "fe25c9ed75362965"
+            ]
+        ]
+    },
+    {
+        "id": "42c30ae69771fb7c",
+        "type": "DB2 for i Config",
+        "cnnname": "Meena",
+        "db": "*LOCAL",
+        "keepalive": true
+    },
+    {
+        "id": "cea28fdf0fe8b17d",
+        "type": "ui_group",
+        "name": "Devices On Network",
+        "tab": "981f287db5e64c64",
+        "order": 1,
+        "disp": true,
+        "width": "17",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a5d111fc9e66fc0a",
+        "type": "ui_group",
+        "name": "Form",
+        "tab": "981f287db5e64c64",
+        "order": 3,
+        "disp": true,
+        "width": 11,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "008eb86483537744",
+        "type": "ui_group",
+        "name": "DEVICE",
+        "tab": "981f287db5e64c64",
+        "order": 2,
+        "disp": true,
+        "width": 9,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "981f287db5e64c64",
+        "type": "ui_tab",
+        "name": "Test Dropdown",
+        "icon": "dashboard",
+        "order": 5,
+        "disabled": false,
+        "hidden": false
+    }
+]
